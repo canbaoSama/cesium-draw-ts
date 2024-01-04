@@ -1,0 +1,108 @@
+@primary: #409eff; // 蓝色
+@grayColor: #303336; // 地图按钮背景色
+@grayColor_2: #444; // 地图按钮border颜色
+@waterColor: #73c9c4; // 水色，infowindow 的 shadow 颜色
+
+html {
+    width: 100%;
+    height: 100%;
+    font-size: 16px;
+    background-color: #fff;
+}
+
+body {
+    // font-family: PingFangSC-Regular;
+    font-family: Microsoft Yahei;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    width: 100%;
+    height: 100%;
+    font-size: 18px;
+    margin: 0;
+    overflow: hidden;
+    background-color: transparent;
+}
+
+#app {
+    height: 100vh;
+    width: auto;
+}
+
+.public-cesium-btn {
+    padding: 0;
+    padding: 0 12px;
+    height: 32px;
+    border-radius: 4px;
+    background: @grayColor;
+    border: 1px solid @grayColor_2;
+
+    &.default {
+        background-color: transparent;
+        border: none;
+
+        &:active,
+        &:focus {
+            background-color: transparent;
+            border: none;
+        }
+    }
+
+    &:active,
+    &:focus {
+        background: @grayColor;
+        border: 1px solid @grayColor_2;
+    }
+
+    &.active,
+    &:hover {
+        color: #fff;
+        fill: #fff;
+        background: @primary;
+        border-color: #aef;
+        box-shadow: 0 0 8px #fff;
+    }
+
+    img {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+.el-color-picker,
+.el-color-picker__trigger,
+.el-color-picker__mask {
+    width: 100%;
+}
+
+// 默认滚动条样式
+*::-webkit-scrollbar {
+    background-color: transparent;
+    height: 12px;
+    width: 12px
+}
+
+* {
+    scrollbar-width: thin
+}
+
+*::-webkit-scrollbar-thumb {
+    transition: background .2s ease-in-out;
+    border: 3px solid transparent;
+    -webkit-background-clip: content-box;
+    background-clip: content-box;
+    --tw-bg-opacity: 1;
+    background-color: #474c50;
+    border-radius: 9999px
+}
+
+
+*::-webkit-scrollbar-thumb:hover {
+    --tw-bg-opacity: 1;
+    background-color: #474c50;
+}
+
+
+
+*::-webkit-scrollbar-corner {
+    background-color: transparent
+}
