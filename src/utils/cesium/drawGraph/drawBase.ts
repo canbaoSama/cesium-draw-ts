@@ -88,11 +88,16 @@ export default class DrawGraphBase extends CreateTooltip {
     getArrMidElement = getArrMidElement
     computeCenterPotition = computeCenterPotition // 计算所有点位的中间点,点位可能在图形外，如果要保持在图形内部，需要引入额外的库，使用凸包算法
 
-    constructor(viewer: Viewer) {
+    constructor(viewer: Viewer, options?: DrawConfigIF) {
         super()
         this.viewer = viewer
         this.timeStampId = new Date().getTime()
-
+        if (options) {
+            this.config = {
+                ...this.config,
+                ...options
+            }
+        }
         nextTick(() => {
             this.init()
         })

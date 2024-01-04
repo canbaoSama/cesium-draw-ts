@@ -14,8 +14,8 @@ import type { DrawCartesian3, DrawConfigIF, DrawEntity, DrawStagingData } from '
 import { DRAW_GRAPH_MAP } from '@/constants/index'
 
 export default class DrawGraphCircle extends DrawGraphBase {
-    constructor(viewer: Viewer) {
-        super(viewer)
+    constructor(viewer: Viewer, options?: DrawConfigIF) {
+        super(viewer, options)
 
         this.viewer = viewer
         this.drawHandler = new ScreenSpaceEventHandler(viewer.scene.canvas)

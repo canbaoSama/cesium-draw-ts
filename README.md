@@ -25,8 +25,8 @@ npm i cesium-draw-ts
 #### 引入 element-plus 的相关组件
 
 ```ts
-import 'element-plus/theme-chalk/index.css';
-import { ElButton, ElColorPicker, ElForm, ElFormItem, ElImage, ElInput, ElInputNumber, ElOption, ElScrollbar, ElSelect, ElSwitch } from 'element-plus';
+import "element-plus/theme-chalk/index.css";
+import { ElButton, ElColorPicker, ElForm, ElFormItem, ElImage, ElInput, ElInputNumber, ElOption, ElScrollbar, ElSelect, ElSwitch } from "element-plus";
 
 app.use(ElButton).use(ElForm).use(ElInput).use(ElImage).use(ElScrollbar).use(ElInputNumber).use(ElSwitch).use(ElColorPicker).use(ElFormItem).use(ElSelect).use(ElOption);
 ```
@@ -37,11 +37,11 @@ app.use(ElButton).use(ElForm).use(ElInput).use(ElImage).use(ElScrollbar).use(ElI
 
 ```vue
 <script setup lang="ts">
-import '/node_modules/cesium-draw-ts/dist/style.css';
-import { DrawModel } from 'cesium-draw-ts';
+import "/node_modules/cesium-draw-ts/dist/style.css";
+import { DrawModel } from "cesium-draw-ts";
 
 const show = ref(false);
-const viewer = new Viewer('viewerContainer', {}); // 这只是一个示例，具体的viewer传入项目的viewer即可
+const viewer = new Viewer("viewerContainer", {}); // 这只是一个示例，具体的viewer传入项目的viewer即可
 const drawRef = ref();
 function showData() {
     console.warn(drawRef.value.drawStore);
@@ -63,11 +63,11 @@ function showData() {
 </style>
 ```
 
-#### 直接使用方法触发绘制
+### 直接使用方法触发绘制
 
 ```vue
 <script setup lang="ts">
-import { DrawFunc, MouseTooltip } from 'cesium-draw-ts';
+import { DrawFunc, MouseTooltip } from "cesium-draw-ts";
 
 const drawGraph = ref();
 drawGraph.value = new DrawFunc.DrawGraphLine(viewer.value, {});
@@ -79,11 +79,13 @@ drawGraph.value.startDraw();
 </template>
 ```
 
-#### 所有绘制方法的 options 参数
+### 方法使用说明
+
+#### 所有绘制方法
 
 所有绘制方法
 
-    | 方法名                      | 方法描述
+    | 方法名,参数配置如下方options   | 方法描述
     | -------------------------- | --------
     | DrawGraphPoint             | 点
     | DrawGraphLine              | 折线
@@ -94,6 +96,8 @@ drawGraph.value.startDraw();
     | DrawGraphStraightArrow     | 直线箭头
     | DrawGraphAttactArrow       | 攻击箭头
     | DrawGraphPincerArrow       | 钳击箭头
+
+    | 这些就是一些测量方法了，无配置   | 方法描述
     | DrawGraphPosMeasure        | 坐标查询
     | DrawGraphSpaceDisMeasure   | 空间距离
     | DrawGraphStickDisMeasure   | 贴地距离
@@ -143,7 +147,58 @@ drawGraph.value.startDraw();
     | clear         | 清除所有绘制相关
     | ------------- | ----------------------------------------------
 
-### 编辑和删除
+只有三个方法需要传入参数，使用如下：
+
+```ts
+reEnterModify(stagingData: DrawStagingData)
+drawOldData(stagingData: DrawStagingData)
+updateConfig(config: DrawConfigIF)
+```
+
+```ts
+// 绘制属性面板可配置属性
+export interface DrawConfigIF {
+    name: string; // 名称
+    description: string; // 描述
+    masthead: boolean; // 标头，是否展示绘制图形的name
+
+    lineType: string; // 线型
+    lineWidth: number; // 线宽
+    lineColor: string; // 线条颜色,rgba形式
+
+    outlineType: string; // 边框线型
+    outlineColor: string; // 边框颜色
+    outlineWidth: number; // 边框线宽
+
+    radiusLineType: string; // 半径线型
+    radiusLineColor: string; // 半径线条颜色
+    radiusLineWidth: number; // 半径线宽
+
+    fillColor: string; // 填充颜色,rgba形式
+
+    fill: boolean;
+    outline: boolean;
+    extrudedHeight: number;
+    radius: number;
+    line: boolean;
+}
+
+export interface SaveDataIF {
+    timeStampId?: number;
+    custom?: Array<number[]>;
+    radius?: number;
+    positions: Array<DrawCartesian3>;
+    locations?: Array<number[]>;
+}
+
+// 暂存的绘制数据
+export interface DrawStagingData {
+    saveData: SaveDataIF;
+    config?: DrawConfigIF;
+}
+```
+
+### 进入编辑和删除
 
 编辑和删除通过暴露的方法就可以实现，根据个人情况开发，可以参考下面的写法
 
@@ -155,38 +210,34 @@ drawGraph.value.startDraw();
  */
 // 给绘制的图形绑定点击事件
 function bindGloveEvent() {
-    handler = new ScreenSpaceEventHandler(viewer.scene.canvas);
+    handler = new ScreenSpaceEventHandler(viewer.value?.scene.canvas);
     handler.setInputAction((movement: any) => {
-        const pick = viewer.scene.pick(movement.position);
+        const pick = viewer.value?.scene.pick(movement.position);
         if (defined(pick)) {
             const obj = pick?.id;
             if (!obj || !obj.layerId || flag.value === OPERATE_STATUS.NONE) return;
-
-            if (flag.value === OPERATE_STATUS.EDIT)
-                // 编辑状态
-                enterDrawEditing(obj.timeStampId, obj.drawType);
-            else if (flag.value === OPERATE_STATUS.DELETE)
-                // 删除状态
-                clearEntityById(obj.timeStampId);
+            if (flag.value === OPERATE_STATUS.EDIT) enterDrawEditing(obj.timeStampId, obj.drawType);
+            else if (flag.value === OPERATE_STATUS.DELETE) clearEntityById(obj.timeStampId, true);
         }
     }, ScreenSpaceEventType.LEFT_CLICK);
 }
-function clearEntityById(timeStampId: number) {
-    const entityList = viewer.entities.values;
+function clearEntityById(timeStampId: number, clearDrawedShape = false) {
+    const entityList = viewer.value?.entities.values;
     if (!entityList || entityList.length < 1) return;
 
     for (let i = 0; i < entityList.length; i++) {
         const entity: DrawEntity = entityList[i];
-        if (entity.layerId === layerId && entity.timeStampId === timeStampId) {
-            viewer.entities.remove(entity);
+        if (entity.layerId === drawConfig.layerId && entity.timeStampId === timeStampId) {
+            viewer.value?.entities.remove(entity);
             i--;
         }
     }
+    if (clearDrawedShape) delete drawedShape.value[timeStampId];
 }
 function enterDrawEditing(timeStampId: number, drawType: string) {
     // 先移除entity
     clearEntityById(timeStampId);
-    drawGraph?.reEnterModify(drawedShape[timeStampId], timeStampId);
+    drawGraph.value?.reEnterModify(drawedShape.value[timeStampId]);
 }
 ```
 

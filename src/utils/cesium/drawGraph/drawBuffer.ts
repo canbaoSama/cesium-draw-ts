@@ -13,8 +13,8 @@ import { DRAW_GRAPH_MAP } from '@/constants/index'
 export default class DrawGraphBuffer extends DrawGraphBase {
     computeBufferLine = computeBufferLine
 
-    constructor(viewer: Viewer) {
-        super(viewer)
+    constructor(viewer: Viewer, options?: DrawConfigIF) {
+        super(viewer, options)
 
         this.viewer = viewer
         this.drawHandler = new ScreenSpaceEventHandler(viewer.scene.canvas)
