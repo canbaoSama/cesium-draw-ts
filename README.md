@@ -85,26 +85,25 @@ drawGraph.value.startDraw();
 
 所有绘制方法
 
-    | 方法名,参数配置如下方options   | 方法描述
-    | -------------------------- | --------
-    | DrawGraphPoint             | 点
-    | DrawGraphLine              | 折线
-    | DrawGraphCircle            | 圆形
-    | DrawGraphPolygon           | 多边形
-    | DrawGraphRectangle         | 矩形
-    | DrawGraphBuffer            | 缓冲区
-    | DrawGraphStraightArrow     | 直线箭头
-    | DrawGraphAttactArrow       | 攻击箭头
-    | DrawGraphPincerArrow       | 钳击箭头
+   | 方法名,参数配置如下方options   | 方法描述
+| -------------------------- | --------
+| DrawGraphPoint             | 点
+| DrawGraphLine              | 折线
+| DrawGraphCircle            | 圆形
+| DrawGraphPolygon           | 多边形
+| DrawGraphRectangle         | 矩形
+| DrawGraphBuffer            | 缓冲区
+| DrawGraphStraightArrow     | 直线箭头
+| DrawGraphAttactArrow       | 攻击箭头
+| DrawGraphPincerArrow       | 钳击箭头
 
-    | 这些就是一些测量方法了，无配置   | 方法描述
-    | DrawGraphPosMeasure        | 坐标查询
-    | DrawGraphSpaceDisMeasure   | 空间距离
-    | DrawGraphStickDisMeasure   | 贴地距离
-    | DrawGraphAreaMeasure       | 面积量算
-    | DrawGraphAngleBtwMeasure   | 夹角角度
-    | DrawGraphAnglePitchMeasure | 俯仰角度
-    | -------------------------- | --------
+| 这些就是一些测量方法了，无配置   | 方法描述
+| DrawGraphPosMeasure        | 坐标查询
+| DrawGraphSpaceDisMeasure   | 空间距离
+| DrawGraphStickDisMeasure   | 贴地距离
+| DrawGraphAreaMeasure       | 面积量算
+| DrawGraphAngleBtwMeasure   | 夹角角度
+| DrawGraphAnglePitchMeasure | 俯仰角度
 
 #### options 参数说明
 
