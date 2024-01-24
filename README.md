@@ -97,7 +97,10 @@ drawGraph.value.startDraw();
 | DrawGraphAttactArrow       | 攻击箭头
 | DrawGraphPincerArrow       | 钳击箭头
 
-| 这些就是一些测量方法了，无配置   | 方法描述
+这些就是一些测量方法了，无配置
+
+| 方法名                     | 方法描述
+| -------------------------- | --------
 | DrawGraphPosMeasure        | 坐标查询
 | DrawGraphSpaceDisMeasure   | 空间距离
 | DrawGraphStickDisMeasure   | 贴地距离
