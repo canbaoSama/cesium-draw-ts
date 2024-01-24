@@ -19,7 +19,7 @@ npm i cesium-draw-ts
 #### 安装 element-plus
 
 ```bash
-npm i cesium-draw-ts
+npm i element-plus
 ```
 
 #### 引入 element-plus 的相关组件
