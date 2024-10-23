@@ -39,6 +39,8 @@ app.use(ElButton).use(ElForm).use(ElInput).use(ElImage).use(ElScrollbar).use(ElI
 <script setup lang="ts">
 import "/node_modules/cesium-draw-ts/dist/style.css";
 import { DrawModel } from "cesium-draw-ts";
+import { ref } from "vue";
+import { Viewer } from "cesium";
 
 const show = ref(false);
 const viewer = new Viewer("viewerContainer", {}); // 这只是一个示例，具体的viewer传入项目的viewer即可
@@ -52,7 +54,7 @@ function showData() {
     <div id="viewerContainer" class="cesium-full-screen" />
 
     <ElButton type="primary" size="large" class="absolute z-100 top-10 left-10" @click="showData"> 点击查看数据 </ElButton>
-    <DrawModel v-if="cesiumStore.show" ref="drawRef" :viewer="cesiumStore.viewer" class="absolute cesium-draw-model" />
+    <DrawModel v-if="show" ref="drawRef" :viewer="viewer" class="absolute cesium-draw-model" />
 </template>
 
 <style lang="less" scoped>
@@ -85,67 +87,67 @@ drawGraph.value.startDraw();
 
 所有绘制方法
 
-   | 方法名,参数配置如下方options   | 方法描述
-| -------------------------- | --------
-| DrawGraphPoint             | 点
-| DrawGraphLine              | 折线
-| DrawGraphCircle            | 圆形
-| DrawGraphPolygon           | 多边形
-| DrawGraphRectangle         | 矩形
-| DrawGraphBuffer            | 缓冲区
-| DrawGraphStraightArrow     | 直线箭头
-| DrawGraphAttactArrow       | 攻击箭头
-| DrawGraphPincerArrow       | 钳击箭头
+| 方法名,参数配置如下方 options | 方法描述 |
+| ----------------------------- | -------- |
+| DrawGraphPoint                | 点       |
+| DrawGraphLine                 | 折线     |
+| DrawGraphCircle               | 圆形     |
+| DrawGraphPolygon              | 多边形   |
+| DrawGraphRectangle            | 矩形     |
+| DrawGraphBuffer               | 缓冲区   |
+| DrawGraphStraightArrow        | 直线箭头 |
+| DrawGraphAttactArrow          | 攻击箭头 |
+| DrawGraphPincerArrow          | 钳击箭头 |
 
 这些就是一些测量方法了，无配置
 
-| 方法名                     | 方法描述
-| -------------------------- | --------
-| DrawGraphPosMeasure        | 坐标查询
-| DrawGraphSpaceDisMeasure   | 空间距离
-| DrawGraphStickDisMeasure   | 贴地距离
-| DrawGraphAreaMeasure       | 面积量算
-| DrawGraphAngleBtwMeasure   | 夹角角度
-| DrawGraphAnglePitchMeasure | 俯仰角度
+| 方法名                     | 方法描述 |
+| -------------------------- | -------- |
+| DrawGraphPosMeasure        | 坐标查询 |
+| DrawGraphSpaceDisMeasure   | 空间距离 |
+| DrawGraphStickDisMeasure   | 贴地距离 |
+| DrawGraphAreaMeasure       | 面积量算 |
+| DrawGraphAngleBtwMeasure   | 夹角角度 |
+| DrawGraphAnglePitchMeasure | 俯仰角度 |
 
 #### options 参数说明
 
-| 参数名            | 类型      | 描述
-| ----------------- | ------- | -------------------------------------------------------------------
-| description       | string  | 描述
-| masthead          | boolean | 标头，是否展示绘制图形的 name
-| lineType          | string  | 普通线条的线型
-| lineColor         | string  | 线条颜色
-| lineWidth         | number  | 线宽
-| radiusLineType    | string  | 半径线型
-| radiusLineColor   | string  | 半径线条颜色
-| radiusLineWidth   | number  | 半径线宽
-| outlineType       | string  | 外部边框线型
-| outlineColor      | string  | 外部边框颜色
-| outlineWidth      | number  | 边框线宽
-| fillColor         | string  | 填充颜色
-| radius            | number  | 缓冲区半径
-| fill              | boolean | 是否填充，UI 暂未添加这个选项
-| outline           | boolean | 是否展示外部线条，UI 暂未添加这个选项
-| line              | boolean | 是否展示线条，UI 暂未添加这个选项
-| layerId           | string  | 用作识别绘制的 entity 的标识，其实可以设置并使用 entity.id 做识别的
-| dragIconLight     | string  | 绘制时的红点,默认边界点
-| dragIcon          | string  | 绘制时的灰点,默认线条中心点
-| dragIconGreen     | string  | 绘制时的绿点
+| 参数名          | 类型    | 描述                                                                |
+| --------------- | ------- | ------------------------------------------------------------------- |
+| description     | string  | 描述                                                                |
+| masthead        | boolean | 标头，是否展示绘制图形的 name                                       |
+| lineType        | string  | 普通线条的线型                                                      |
+| lineColor       | string  | 线条颜色                                                            |
+| lineWidth       | number  | 线宽                                                                |
+| radiusLineType  | string  | 半径线型                                                            |
+| radiusLineColor | string  | 半径线条颜色                                                        |
+| radiusLineWidth | number  | 半径线宽                                                            |
+| outlineType     | string  | 外部边框线型                                                        |
+| outlineColor    | string  | 外部边框颜色                                                        |
+| outlineWidth    | number  | 边框线宽                                                            |
+| fillColor       | string  | 填充颜色                                                            |
+| radius          | number  | 缓冲区半径                                                          |
+| fill            | boolean | 是否填充，UI 暂未添加这个选项                                       |
+| outline         | boolean | 是否展示外部线条，UI 暂未添加这个选项                               |
+| line            | boolean | 是否展示线条，UI 暂未添加这个选项                                   |
+| layerId         | string  | 用作识别绘制的 entity 的标识，其实可以设置并使用 entity.id 做识别的 |
+| dragIconLight   | string  | 绘制时的红点,默认边界点                                             |
+| dragIcon        | string  | 绘制时的灰点,默认线条中心点                                         |
+| dragIconGreen   | string  | 绘制时的绿点                                                        |
 
 #### 绘制方法的内部执行方法
 
-  |               | 描述
-| ------------- | ----------------------------------------------
-| startDraw     | 开始绘制
-| reEnterModify | 重新进入编辑
-| drawOldData   | 取消修改,绘制修改前数据并清除所有监听
-| updateConfig  | 更新绘制的图形配置，配置参数参考上面的参数说明
-| clearDrawing  | 清除绘制数据并清除所有监听
-| saveDraw      | 保存绘制的图形,返回保存的数据并清除所有监听
-| saveClear     | 保存时清除监听和锚点并返回位置数据信息
-| clearHandler  | 清除所有 handler 监听
-| clear         | 清除所有绘制相关
+|               | 描述                                           |
+| ------------- | ---------------------------------------------- |
+| startDraw     | 开始绘制                                       |
+| reEnterModify | 重新进入编辑                                   |
+| drawOldData   | 取消修改,绘制修改前数据并清除所有监听          |
+| updateConfig  | 更新绘制的图形配置，配置参数参考上面的参数说明 |
+| clearDrawing  | 清除绘制数据并清除所有监听                     |
+| saveDraw      | 保存绘制的图形,返回保存的数据并清除所有监听    |
+| saveClear     | 保存时清除监听和锚点并返回位置数据信息         |
+| clearHandler  | 清除所有 handler 监听                          |
+| clear         | 清除所有绘制相关                               |
 
 只有三个方法需要传入参数，使用如下：
 
