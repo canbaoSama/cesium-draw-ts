@@ -1,0 +1,14 @@
+node_modules/
+src/
+public/
+*.log
+*.md
+!README.md
+index.html
+tsconfig.json
+uno.config.ts
+vite.config.ts
+.git/
+.vscode/
+.idea/
+.history/

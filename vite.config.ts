@@ -111,6 +111,9 @@ export default defineConfig(() => {
                 // 确保外部化处理那些你不想打包进库的依赖
                 external: ['vue'], // 将vue视为外部依赖项
                 output: {
+                    globals: {
+                        vue: 'Vue', // UMD 构建时 vue 外部依赖对应的全局变量名
+                    },
                     // chunkFileNames: 'js/[name]-[hash].js', // 引入文件名的名称
                     // entryFileNames: 'js/[name]-[hash].js', // 包的入口文件名称
                     // assetFileNames: '[ext]/[name]-[hash].[ext]', // 资源文件像 字体，图片等

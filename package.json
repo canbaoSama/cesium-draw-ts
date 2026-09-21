@@ -9,20 +9,21 @@
     "main": "./dist/drawGraph.umd.js",
     "module": "./dist/drawGraph.mjs",
     "types": "./index.d.ts",
-    "styles": "./dist/style.css",
+    "style": "./dist/style.css",
     "files": [
         "dist",
         "index.d.ts"
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/canbaoSama/cesium-draw-ts"
+        "url": "git+https://github.com/canbaoSama/cesium-draw-ts.git"
     },
     "scripts": {
         "dev": "vite",
         "build": "vite build",
         "preview": "vite build && vite preview",
-        "lint:fix": "eslint . --fix"
+        "lint:fix": "eslint . --fix",
+        "prepublishOnly": "npm run build"
     },
     "dependencies": {
         "@antfu/eslint-config": "0.38.4",
